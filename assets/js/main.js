@@ -459,12 +459,23 @@ document.getElementById("openModalNew").addEventListener("click", function(e) {
 	modalVideoNew.src = "https://video.akamai.steamstatic.com/store_trailers/256889456/movie480_vp9.webm?t=1654109241"; // 동영상 링크 추가
 });
 
-// 'There Is No Game' 링크 클릭 이벤트
 document.getElementById("openModalNew2").addEventListener("click", function(e) {
-	e.preventDefault();
-	modalNew.style.display = "flex"; // 모달 표시
-	modalTitleNew.textContent = "There Is No Game: Wrong Dimension"; // 게임 이름 업데이트
-	modalVideoNew.src = "https://video.akamai.steamstatic.com/store_trailers/256793611/movie480_vp9.webm?t=1595513367"; // 동영상 링크 추가
+    e.preventDefault();
+    modalNew.style.display = "flex"; // 모달 표시
+    modalTitleNew.textContent = "There Is No Game: Wrong Dimension"; // 게임 이름 업데이트
+
+    // 비디오 소스 설정
+    const videoSourceMP4 = "https://video.akamai.steamstatic.com/store_trailers/256793611/movie480.mp4?t=15";
+    const videoSourceWebM = "https://video.akamai.steamstatic.com/store_trailers/256793611/movie480_vp9.webm?t=15";
+
+    // MP4 우선으로 설정
+    modalVideoNew.src = videoSourceMP4;
+    modalVideoNew.innerHTML = `
+        <source src="${videoSourceMP4}" type="video/mp4">
+        <source src="${videoSourceWebM}" type="video/webm">
+        Your browser does not support the video tag.
+    `;
+    modalVideoNew.load(); // 비디오 소스 변경 후 로드
 });
 
 // 'Little Nightmare' 링크 클릭 이벤트
