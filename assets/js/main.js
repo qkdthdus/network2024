@@ -458,18 +458,26 @@ document.getElementById("openModalNew").addEventListener("click", function(e) {
 	modalTitleNew.textContent = "Elden Ring"; // 게임 이름 업데이트
 	modalVideoNew.src = "https://video.akamai.steamstatic.com/store_trailers/256889456/movie480_vp9.webm?t=1654109241"; // 동영상 링크 추가
 });
-//there is no game 링크 클릭 이벤트
+
 // 'There Is No Game' 링크 클릭 이벤트
 document.getElementById("openModalNew2").addEventListener("click", function(e) {
     e.preventDefault();
     modalNew.style.display = "flex"; // 모달 표시
-    modalTitle.textContent = "There Is No Game: Wrong Dimension"; // 게임 이름 업데이트
+    modalTitleNew.textContent = "There Is No Game: Wrong Dimension"; // 게임 이름 업데이트
 
-    // YouTube 비디오 URL
-    const videoUrl = this.dataset.video; // data-video 속성에서 URL 가져오기
-
-    // iframe의 src를 YouTube URL로 설정
-    modalVideoNew.src = videoUrl; // 비디오 URL 설정
+    // 비디오 소스 설정
+    const videoSourceMP4 = "https://video.akamai.steamstatic.com/store_trailers/256793611/movie480.mp4?t=15";
+    const videoSourceWebM = "https://video.akamai.steamstatic.com/store_trailers/256793611/movie480_vp9.webm?t=15";
+    
+    // iframe 대신 video 태그로 변경
+    modalVideoNew.innerHTML = `
+        <video width="100%" height="400" controls>
+            <source src="${videoSourceMP4}" type="video/mp4">
+            <source src="${videoSourceWebM}" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+    `;
+    modalVideoNew.load(); // 비디오 소스 변경 후 로드
 });
 
 // 모달 닫기 기능
